@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "Google results clickable map",
+  "description": "Bring back clickable map thumbnails in Google results",
+  "version": "1.0",
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "icon.jpeg"
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "main.ts"
+      ],
+      "matches": [
+        "https://www.google.com/search*"
+      ]
+    }
+  ]
+}
+
+
