@@ -23,6 +23,9 @@ Incoming.
 
 "Et voilà!" You should be able to open Google Maps from a Google results including a map thumbnail.
 
+## Troubleshooting
+
+If you face any trouble, please [create an issue](https://github.com/monsieurnebo/chrome-extension-google-results-clickable-map/issues) and I will try to get back to you as soon as possible.
 
 ## License
 
