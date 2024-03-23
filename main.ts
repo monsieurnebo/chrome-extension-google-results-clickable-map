@@ -1,21 +1,46 @@
-// Restaurant, bar, cafe, food, point_of_interest, establishment, etc
-const PRIVATE_PLACE_THUMBNAIL_ID = 'lu_map'
+/**
+ * Small map thumbnail
+ * It appears on the right panel gathering information regarding a place (e.g. restaurant, theater, etc)
+ */
+const SMALL_MAP_THUMBNAIL_SELECTOR = '#lu_map'
 
-// City, country, state, street, etc
-const PUBLIC_PLACE_THUMBNAIL_ID = 'dimg_3'
+/**
+ * Big map thumbnail
+ * It appears right below the search bar, usually for a precise address
+ */
+const BIG_MAP_THUMBNAIL_SELECTOR = '#dimg_3'
 
+/**
+ * Interactive iframe map
+ * It appears in results such as "city" and can be set fullscreen and interacted with
+ */
+const INTERACTIVE_MAP_SELECTOR = '.Lx2b0d'
 
 function getMapThumbnail() {
-  const privatePlaceMap = document.getElementById(PRIVATE_PLACE_THUMBNAIL_ID);
+  const interactiveMap = document.querySelector(INTERACTIVE_MAP_SELECTOR);
+  if (interactiveMap) {
+    console.log('Interactive map iframe found')
+
+    return {
+      type: 'interactiveMap',
+      element: interactiveMap
+    }
+  }
+
+  const privatePlaceMap = document.querySelector(SMALL_MAP_THUMBNAIL_SELECTOR);
   if (privatePlaceMap) {
+    console.log('Private place map thumbnail found')
+
     return {
       type: 'privatePlace',
       element: privatePlaceMap
     }
   }
 
-  const publicPlaceMap = document.getElementById(PUBLIC_PLACE_THUMBNAIL_ID);
+  const publicPlaceMap = document.querySelector(BIG_MAP_THUMBNAIL_SELECTOR);
   if (publicPlaceMap) {
+    console.log('Public place map thumbnail found')
+
     return {
       type: 'publicPlace',
       element: publicPlaceMap
@@ -34,6 +59,8 @@ function wrapElementInLink(element) {
 
   // 3. Move the targeted element into the wrapper
   wrapperLink.appendChild(element);
+
+  return wrapperLink
 }
 
 function enableParentLink(element) {
@@ -55,8 +82,6 @@ function main() {
 
     return null
   }
-
-  console.log('Map thumbnail found & made clickable')
 
   wrapElementInLink(mapThumbnail.element)
   enableParentLink(mapThumbnail.element)
