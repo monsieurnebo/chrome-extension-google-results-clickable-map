@@ -56,18 +56,10 @@ function main() {
     return null
   }
 
-  if (mapThumbnail.type === 'publicPlace') {
-    console.log('Public place found')
+  console.log('Map thumbnail found & made clickable')
 
-    wrapElementInLink(mapThumbnail.element)
-    enableParentLink(mapThumbnail.element)
-  }
-
-  if (mapThumbnail.type === 'privatePlace') {
-    console.log('Private place found')
-
-    enableParentLink(mapThumbnail.element)
-  } 
+  wrapElementInLink(mapThumbnail.element)
+  enableParentLink(mapThumbnail.element)
 }
 
 main()
