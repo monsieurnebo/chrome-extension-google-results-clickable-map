@@ -29,7 +29,7 @@ function getMapThumbnail() {
 
   const smallMap = document.querySelector(SMALL_MAP_THUMBNAIL_SELECTOR);
   if (smallMap) {
-    console.log('Private place map thumbnail found')
+    console.log('Small map thumbnail found')
 
     return {
       type: 'smallMap',
@@ -39,7 +39,7 @@ function getMapThumbnail() {
 
   const bigMap = document.querySelector(BIG_MAP_THUMBNAIL_SELECTOR);
   if (bigMap) {
-    console.log('Public place map thumbnail found')
+    console.log('Big map thumbnail found')
 
     return {
       type: 'publicPlace',
