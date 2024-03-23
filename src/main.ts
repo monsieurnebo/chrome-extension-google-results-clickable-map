@@ -27,23 +27,23 @@ function getMapThumbnail() {
     }
   }
 
-  const privatePlaceMap = document.querySelector(SMALL_MAP_THUMBNAIL_SELECTOR);
-  if (privatePlaceMap) {
+  const smallMap = document.querySelector(SMALL_MAP_THUMBNAIL_SELECTOR);
+  if (smallMap) {
     console.log('Private place map thumbnail found')
 
     return {
-      type: 'privatePlace',
-      element: privatePlaceMap
+      type: 'smallMap',
+      element: smallMap
     }
   }
 
-  const publicPlaceMap = document.querySelector(BIG_MAP_THUMBNAIL_SELECTOR);
-  if (publicPlaceMap) {
+  const bigMap = document.querySelector(BIG_MAP_THUMBNAIL_SELECTOR);
+  if (bigMap) {
     console.log('Public place map thumbnail found')
 
     return {
       type: 'publicPlace',
-      element: publicPlaceMap
+      element: bigMap
     }
   }
 
