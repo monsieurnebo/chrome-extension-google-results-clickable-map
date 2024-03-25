@@ -16,6 +16,51 @@ const BIG_MAP_THUMBNAIL_SELECTOR = '#dimg_3'
  */
 const INTERACTIVE_MAP_SELECTOR = '.Lx2b0d'
 
+/**
+ * Results type tabs container
+ */
+const RESULTS_TYPE_TABS_CONTAINER_SELECTOR = '.crJ18e'
+
+function getMapsUrlWithQuery() {
+  const link = window.location.href;
+  const step = link.split('q=')[1];
+  const query = step.split('&')[0];
+
+  const url = `https://www.google.com/maps?q=${query}`;
+
+  return url
+}
+
+function addMapsTab() {
+  const tabsContainer  = document.querySelector(RESULTS_TYPE_TABS_CONTAINER_SELECTOR);
+
+  if (!tabsContainer) {
+    console.warn('Impossible to find results tabs container')
+    return null
+  }
+
+  const secondTab = tabsContainer.children[1]
+
+  if (!secondTab) {
+    console.warn('Impossible to find tabs')
+    return null
+  }
+
+  const newMapTab = tabsContainer.children[1].cloneNode(true)
+
+  if (!newMapTab) {
+    console.warn('Cannot create map tab')
+    return null
+  }
+
+  newMapTab.querySelector('div').textContent = 'Maps'
+  newMapTab.querySelector('a').setAttribute('href', getMapsUrlWithQuery());
+  
+  tabsContainer.insertBefore(newMapTab, secondTab)
+
+  console.log('Maps tab added')
+}
+
 function getMapThumbnail() {
   const interactiveMap = document.querySelector(INTERACTIVE_MAP_SELECTOR);
   if (interactiveMap) {
@@ -64,21 +109,21 @@ function wrapElementInLink(element) {
 }
 
 function enableParentLink(element) {
-  const link = window.location.href;
-  const step = link.split('q=')[1];
-  const query = step.split('&')[0];
+  const url = getMapsUrlWithQuery();
 
-  element.parentElement.setAttribute('href', 'https://www.google.com/maps?q=' + query);
+  element.parentElement.setAttribute('href', url);
 }
 
 
 function main() {
+  addMapsTab()
+
   console.log('Searching for a map thumbnail...')
 
   const mapThumbnail = getMapThumbnail();
 
   if (!mapThumbnail) {
-    console.log('No map thumbnail found in the Google results')
+    console.warn('No map thumbnail found in the Google results')
 
     return null
   }
