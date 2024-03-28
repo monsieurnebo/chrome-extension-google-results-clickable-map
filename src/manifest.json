@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Google results clickable map",
-  "description": "Bring back clickable map thumbnails in Google results",
-  "version": "1.0",
+  "description": "Bring back clickable map thumbnails & \"Maps\" tab in Google results",
+  "version": "1.1.0",
   "action": {
     "default_popup": "index.html",
     "default_icon": "icon.jpeg"
