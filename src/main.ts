@@ -1,20 +1,17 @@
 /**
- * Small map thumbnail
- * It appears on the right panel gathering information regarding a place (e.g. restaurant, theater, etc)
+ * Either:
+ * - Small map thumbnail: it appears on the right panel gathering information 
+ * regarding a place (e.g. restaurant, theater, etc)
+ * - Big map thumbnail: it appears right below the search bar, usually for a precise address
  */
-const SMALL_MAP_THUMBNAIL_SELECTOR = '#lu_map'
-
-/**
- * Big map thumbnail
- * It appears right below the search bar, usually for a precise address
- */
-const BIG_MAP_THUMBNAIL_SELECTOR = '#dimg_3'
+const MAP_THUMBNAIL_SELECTOR = '#lu_map'
 
 /**
  * Interactive iframe map
  * It appears in results such as "city" and can be set fullscreen and interacted with
  */
-const INTERACTIVE_MAP_SELECTOR = '.Lx2b0d'
+const INTERACTIVE_MAP_CARD_SELECTOR = '.Lx2b0d'
+const INTERACTIVE_MAP_LARGE_SELECTOR = '.S7dMR'
 
 /**
  * Result types (image, news, ...) tabs container
@@ -79,7 +76,7 @@ function addMapsTab() {
  * Find potential map thumbnail in the Google results page
  */
 function getMapThumbnail() {
-  const interactiveMap = document.querySelector(INTERACTIVE_MAP_SELECTOR);
+  const interactiveMap = document.querySelector(INTERACTIVE_MAP_CARD_SELECTOR) || document.querySelector(INTERACTIVE_MAP_LARGE_SELECTOR)
   if (interactiveMap) {
     console.log('Interactive map iframe found')
 
@@ -89,7 +86,7 @@ function getMapThumbnail() {
     }
   }
 
-  const smallMap = document.querySelector(SMALL_MAP_THUMBNAIL_SELECTOR);
+  const smallMap = document.querySelector(MAP_THUMBNAIL_SELECTOR);
   if (smallMap) {
     console.log('Small map thumbnail found')
 
@@ -99,7 +96,7 @@ function getMapThumbnail() {
     }
   }
 
-  const bigMap = document.querySelector(BIG_MAP_THUMBNAIL_SELECTOR);
+  const bigMap = document.querySelector(MAP_THUMBNAIL_SELECTOR);
   if (bigMap) {
     console.log('Big map thumbnail found')
 
