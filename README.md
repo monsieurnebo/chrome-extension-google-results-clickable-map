@@ -11,7 +11,7 @@
 
 ### Chrome Web Store
 
-Incoming.
+One-click install on the [store](https://chromewebstore.google.com/detail/dokhogcjkmekjbjgdfajfoelpjlaaoha).
 
 ### Manually
 
