@@ -4,7 +4,7 @@
   <img align="right" alt="Clickable map icon" src="src/icon.jpeg" title="Google results clickable map" height="150"/>
 </a>
 
-> This extension is bringing clickable map thumbnails in Google results, which have been disabled for european users.
+> This extension is bringing back both **clickable map thumbnails** & the **"Maps" tab** to Google results, which have been disabled for european users.
 
 
 ## Installation
