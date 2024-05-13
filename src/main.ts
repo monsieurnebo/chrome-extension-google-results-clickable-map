@@ -35,7 +35,7 @@ function getMapsUrlWithQuery() {
  * Add the "Maps" tab to the Google results page tabs
  */
 function addMapsTab() {
-  const tabsContainer  = document.querySelector(RESULTS_TYPE_TABS_CONTAINER_SELECTOR)
+  const tabsContainer = document.querySelector(RESULTS_TYPE_TABS_CONTAINER_SELECTOR)?.querySelector('[role="list"]')
 
   if (!tabsContainer) {
     console.warn('Impossible to find results tabs container')
