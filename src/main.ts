@@ -11,7 +11,7 @@ const MAP_THUMBNAIL_SELECTOR = '#lu_map'
  * It appears in results such as "city" and can be set fullscreen and interacted with
  */
 const INTERACTIVE_MAP_CARD_SELECTOR = '.Lx2b0d'
-const INTERACTIVE_MAP_LARGE_SELECTOR = '.S7dMR'
+const INTERACTIVE_MAP_LARGE_SELECTOR = '.PAq55d'
 
 /**
  * Result types (image, news, ...) tabs container
