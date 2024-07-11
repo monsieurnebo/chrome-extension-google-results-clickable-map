@@ -107,6 +107,15 @@ function getMapThumbnail() {
     }
   }
 
+  const bigMap = document.querySelector(MAP_THUMBNAIL_SELECTOR);
+  if (bigMap) {
+    console.log('Big map thumbnail found')
+
+    return {
+      type: 'publicPlace',
+      element: bigMap
+    }
+
   return null
 }
 
