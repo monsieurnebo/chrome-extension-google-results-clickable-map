@@ -21,7 +21,10 @@ const RESULTS_TYPE_TABS_CONTAINER_SELECTOR = '.crJ18e'
 /**
  * Generate the Google Maps URL, based on the Google results query
  */
-function getMapsUrlWithQuery() {
+function getMapsUrlWithQuery(dataUrl: string = '') {
+  if(dataUrl) {
+    return `https://maps.google.com/` + dataUrl
+  }
   const link = window.location.href;
   const step = link.split('q=')[1];
   const query = step.split('&')[0];
@@ -63,8 +66,10 @@ function addMapsTab() {
     console.warn('Cannot create map tab link / label')
     return null
   } 
+  
+  const adress = getAdress();
 
-  mapTabLink.setAttribute('href', getMapsUrlWithQuery());
+  mapTabLink.setAttribute('href', getMapsUrlWithQuery(adress));
   mapTabLabel.textContent = 'Maps'
 
   tabsContainer.insertBefore(mapTab, secondTab)
@@ -96,17 +101,18 @@ function getMapThumbnail() {
     }
   }
 
-  const bigMap = document.querySelector(MAP_THUMBNAIL_SELECTOR);
-  if (bigMap) {
-    console.log('Big map thumbnail found')
-
-    return {
-      type: 'publicPlace',
-      element: bigMap
-    }
-  }
-
   return null
+}
+
+function getAdress() {
+  try {
+    console.log('Adress found')
+    return document.getElementsByClassName("gqkR3b hP3ybd")[0].childNodes[0].getAttribute("data-url")
+  }
+  catch {
+    console.log('No adress found')
+    return ''
+  }
 }
 
 /**
@@ -120,12 +126,15 @@ function wrapElementInLinkToMaps(element) {
   // 2. Insert it before the targeted element
   element.parentNode.insertBefore(wrapperLink, element);
 
-  // 3. Set the link target to Google Maps
-  const url = getMapsUrlWithQuery();
+  // 3. Try to get the address from the page
+  const adress = getAdress();
+
+  // 4. Set the link target to Google Maps
+  const url = getMapsUrlWithQuery(adress);
   wrapperLink.setAttribute('href', url);
   wrapperLink.setAttribute('title', 'Open in Google Maps');
 
-  // 4. Move the targeted element into the wrapper
+  // 5. Move the targeted element into the wrapper
   wrapperLink.appendChild(element);
 
   return wrapperLink
