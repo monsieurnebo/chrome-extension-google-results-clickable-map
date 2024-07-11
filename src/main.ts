@@ -19,6 +19,12 @@ const INTERACTIVE_MAP_LARGE_SELECTOR = '.PAq55d'
 const RESULTS_TYPE_TABS_CONTAINER_SELECTOR = '.crJ18e'
 
 /**
+ * This is to get the adress based on the data-url attribute, which is the same as the one in the Google Maps URL
+ */
+const ADRESS_ATTRIBUTE = 'data-url'
+const ADRESS_SELECTOR = 'gqkR3b hP3ybd'
+
+/**
  * Generate the Google Maps URL, based on the Google results query
  */
 function getMapsUrlWithQuery(dataUrl) {
@@ -104,10 +110,14 @@ function getMapThumbnail() {
   return null
 }
 
+/**
+ * Retrieves the address from the page.
+ * @returns The Data-URL found on the page, or an empty string if no address is found. The Data-URL is the same as the one in the Google Maps URL.
+ */
 function getAdress() {
   try {
     console.log('Adress found')
-    return document.getElementsByClassName("gqkR3b hP3ybd")[0].childNodes[0].getAttribute("data-url")
+    return document.getElementsByClassName(ADRESS_SELECTOR)[0].childNodes[0].getAttribute(ADRESS_ATTRIBUTE)
   }
   catch {
     console.log('No adress found')
