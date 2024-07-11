@@ -21,7 +21,7 @@ const RESULTS_TYPE_TABS_CONTAINER_SELECTOR = '.crJ18e'
 /**
  * Generate the Google Maps URL, based on the Google results query
  */
-function getMapsUrlWithQuery(dataUrl: string = '') {
+function getMapsUrlWithQuery(dataUrl) {
   if(dataUrl) {
     return `https://maps.google.com/` + dataUrl
   }
