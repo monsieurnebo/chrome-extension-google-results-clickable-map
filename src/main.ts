@@ -4,7 +4,7 @@
  * regarding a place (e.g. restaurant, theater, etc)
  * - Big map thumbnail: it appears right below the search bar, usually for a precise address
  */
-const MAP_THUMBNAIL_SELECTOR = '#lu_map'
+const STATIC_MAP_THUMBNAIL_SELECTOR = '#lu_map'
 
 /**
  * Interactive iframe map
@@ -49,7 +49,7 @@ function addMapsTab() {
     return null
   }
 
-  const mapTab = secondTab.cloneNode(true)
+  const mapTab = secondTab.cloneNode(true) as Element // TODO: fix this dirty type casting
 
   if (!mapTab) {
     console.warn('Cannot create map tab')
@@ -86,23 +86,13 @@ function getMapThumbnail() {
     }
   }
 
-  const smallMap = document.querySelector(MAP_THUMBNAIL_SELECTOR);
-  if (smallMap) {
-    console.log('Small map thumbnail found')
+  const staticMapThumbnail = document.querySelector(STATIC_MAP_THUMBNAIL_SELECTOR);
+  if (staticMapThumbnail) {
+    console.log('Static map thumbnail found')
 
     return {
-      type: 'smallMap',
-      element: smallMap
-    }
-  }
-
-  const bigMap = document.querySelector(MAP_THUMBNAIL_SELECTOR);
-  if (bigMap) {
-    console.log('Big map thumbnail found')
-
-    return {
-      type: 'publicPlace',
-      element: bigMap
+      type: 'staticMapThumbnail',
+      element: staticMapThumbnail
     }
   }
 
