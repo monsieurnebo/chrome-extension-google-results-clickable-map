@@ -4,6 +4,9 @@ Feel free to create a Pull Request if you want to fix / enhance / etc this exten
 
 Please make sure it still works as expecting for the following scenarios (I will try to automate this part with tests) :
 
+> [!TIP]
+> You can easily test your changes by [loading the local unpacked extension on your browser](https://developer.chrome.com/docs/extensions/get-started/tutorial/hello-world#load-unpacked).
+
 ## Small map thumbnail
 
 ![Small map thumbnail](./images/small-map-thumbnail.png)
