@@ -1,3 +1,6 @@
+const GOOGLE_BASE_URL = 'https://www.google.com'
+const GOOGLE_MAPS_BASE_URL = `${GOOGLE_BASE_URL}/maps`
+
 /**
  * Either:
  * - Small map thumbnail: it appears on the right panel gathering information 
@@ -19,23 +22,53 @@ const INTERACTIVE_MAP_LARGE_SELECTOR = '.PAq55d'
 const RESULTS_TYPE_TABS_CONTAINER_SELECTOR = '.crJ18e'
 
 /**
- * This is to get the adress based on the data-url attribute, which is the same as the one in the Google Maps URL
+ * Exact address of a public place from its dedicated side panel
  */
 const ADRESS_ATTRIBUTE = 'data-url'
 const ADRESS_SELECTOR = 'gqkR3b hP3ybd'
 
 /**
- * Generate the Google Maps URL, based on the Google results query
+ * Retrieves the address from the Google results page side panel, if available
+ * @returns {string|null} The Data-URL found on the page, or an empty string if no address is found. The Data-URL is the same as the one in the Google Maps URL.
  */
-function getMapsUrlWithQuery(dataUrl) {
-  if(dataUrl) {
-    return `https://maps.google.com/` + dataUrl
+function getAddress() {
+  const addressWrapper = document.getElementsByClassName(ADRESS_SELECTOR)[0]
+  const addressElement = addressWrapper?.children[0]
+
+  if (addressWrapper && addressElement) {
+    const address = addressElement.getAttribute(ADRESS_ATTRIBUTE)
+
+    if (address) {
+      console.log('Address found:', address)
+
+      return address
+    }
+  } 
+
+  console.log("No address found")
+
+  return null
+}
+
+/**
+ * Generate the Google Maps URL
+ * @param {string|null} address - The exact address of a public place, if available
+ * @returns {string} - The 
+ */
+function getMapsUrlWithQuery(address) {
+  // 1. If we got the exact address, use it
+  if (address) {
+    const url = `${GOOGLE_BASE_URL}${address}`
+
+    return url
   }
+  
+  // 2. Otherwise, use the Google search query
   const link = window.location.href;
   const step = link.split('q=')[1];
   const query = step.split('&')[0];
 
-  const url = `https://www.google.com/maps?q=${query}`;
+  const url = `${GOOGLE_MAPS_BASE_URL}?q=${query}`;
 
   return url
 }
@@ -58,7 +91,7 @@ function addMapsTab() {
     return null
   }
 
-  const mapTab = secondTab.cloneNode(true) as Element // TODO: fix this dirty type casting
+  const mapTab = secondTab.cloneNode(true)
 
   if (!mapTab) {
     console.warn('Cannot create map tab')
@@ -73,7 +106,7 @@ function addMapsTab() {
     return null
   } 
   
-  const adress = getAdress();
+  const adress = getAddress();
 
   mapTabLink.setAttribute('href', getMapsUrlWithQuery(adress));
   mapTabLabel.textContent = 'Maps'
@@ -105,38 +138,24 @@ function getMapThumbnail() {
       type: 'staticMapThumbnail',
       element: staticMapThumbnail
     }
+  }
 
   return null
-}
-
-/**
- * Retrieves the address from the page.
- * @returns The Data-URL found on the page, or an empty string if no address is found. The Data-URL is the same as the one in the Google Maps URL.
- */
-function getAdress() {
-  try {
-    console.log('Adress found')
-    return document.getElementsByClassName(ADRESS_SELECTOR)[0].childNodes[0].getAttribute(ADRESS_ATTRIBUTE)
-  }
-  catch {
-    console.log('No adress found')
-    return ''
-  }
 }
 
 /**
  * 
  * Wrap a given element in a link to Google Maps
  */
-function wrapElementInLinkToMaps(element) {
+function wrapMapThumbnailInLinkToMaps(element) {
   // 1. Create the wrapper element
   const wrapperLink = document.createElement('a');
 
   // 2. Insert it before the targeted element
   element.parentNode.insertBefore(wrapperLink, element);
 
-  // 3. Try to get the address from the page
-  const adress = getAdress();
+  // 3. Try to get the exact address from the page side panel
+  const adress = getAddress();
 
   // 4. Set the link target to Google Maps
   const url = getMapsUrlWithQuery(adress);
@@ -162,9 +181,7 @@ function main() {
     return null
   }
 
-  wrapElementInLinkToMaps(mapThumbnail.element)
+  wrapMapThumbnailInLinkToMaps(mapThumbnail.element)
 }
 
 main()
-
-
