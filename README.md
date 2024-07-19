@@ -27,6 +27,11 @@ One-click install on the [store](https://chromewebstore.google.com/detail/dokhog
 
 If you face any trouble, please [create an issue](https://github.com/monsieurnebo/chrome-extension-google-results-clickable-map/issues) and I will try to get back to you as soon as possible.
 
+
+## Contributing
+
+See the [dedicated documentation page](./docs/CONTRIBUTING.md).
+
 ## License
 
 Nothing. If this extension makes your life better, that's enough for me.
