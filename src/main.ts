@@ -19,9 +19,18 @@ const INTERACTIVE_MAP_LARGE_SELECTOR = '.PAq55d'
 const RESULTS_TYPE_TABS_CONTAINER_SELECTOR = '.crJ18e'
 
 /**
+ * This is to get the adress based on the data-url attribute, which is the same as the one in the Google Maps URL
+ */
+const ADRESS_ATTRIBUTE = 'data-url'
+const ADRESS_SELECTOR = 'gqkR3b hP3ybd'
+
+/**
  * Generate the Google Maps URL, based on the Google results query
  */
-function getMapsUrlWithQuery() {
+function getMapsUrlWithQuery(dataUrl) {
+  if(dataUrl) {
+    return `https://maps.google.com/` + dataUrl
+  }
   const link = window.location.href;
   const step = link.split('q=')[1];
   const query = step.split('&')[0];
@@ -63,8 +72,10 @@ function addMapsTab() {
     console.warn('Cannot create map tab link / label')
     return null
   } 
+  
+  const adress = getAdress();
 
-  mapTabLink.setAttribute('href', getMapsUrlWithQuery());
+  mapTabLink.setAttribute('href', getMapsUrlWithQuery(adress));
   mapTabLabel.textContent = 'Maps'
 
   tabsContainer.insertBefore(mapTab, secondTab)
@@ -94,9 +105,23 @@ function getMapThumbnail() {
       type: 'staticMapThumbnail',
       element: staticMapThumbnail
     }
-  }
 
   return null
+}
+
+/**
+ * Retrieves the address from the page.
+ * @returns The Data-URL found on the page, or an empty string if no address is found. The Data-URL is the same as the one in the Google Maps URL.
+ */
+function getAdress() {
+  try {
+    console.log('Adress found')
+    return document.getElementsByClassName(ADRESS_SELECTOR)[0].childNodes[0].getAttribute(ADRESS_ATTRIBUTE)
+  }
+  catch {
+    console.log('No adress found')
+    return ''
+  }
 }
 
 /**
@@ -110,12 +135,15 @@ function wrapElementInLinkToMaps(element) {
   // 2. Insert it before the targeted element
   element.parentNode.insertBefore(wrapperLink, element);
 
-  // 3. Set the link target to Google Maps
-  const url = getMapsUrlWithQuery();
+  // 3. Try to get the address from the page
+  const adress = getAdress();
+
+  // 4. Set the link target to Google Maps
+  const url = getMapsUrlWithQuery(adress);
   wrapperLink.setAttribute('href', url);
   wrapperLink.setAttribute('title', 'Open in Google Maps');
 
-  // 4. Move the targeted element into the wrapper
+  // 5. Move the targeted element into the wrapper
   wrapperLink.appendChild(element);
 
   return wrapperLink
