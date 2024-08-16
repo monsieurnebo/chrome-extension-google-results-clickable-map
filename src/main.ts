@@ -84,13 +84,14 @@ function addMapsTab() {
     return null
   }
 
-  const secondTab = tabsContainer.children[1]
+  const tabs = tabsContainer.querySelectorAll('[role="listitem"]')
 
-  if (!secondTab) {
+  if (!tabs) {
     console.warn('Impossible to find tabs')
     return null
   }
 
+  const secondTab = tabs[1]
   const mapTab = secondTab.cloneNode(true)
 
   if (!mapTab) {
@@ -98,7 +99,7 @@ function addMapsTab() {
     return null
   } 
 
-  const mapTabLink = mapTab.querySelector('a')
+  const mapTabLink = mapTab.querySelector('[role="link"]')
   const mapTabLabel = mapTab.querySelector('div')
 
   if (!mapTabLink || !mapTabLabel) {
