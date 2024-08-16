@@ -40,7 +40,13 @@ body {
   flex-direction: row;
 }
 
-.footer__item:not(:last-child)::after {
+.footer__item:last-child {
+  opacity: 0.5;
+  margin-left: auto;
+}
+
+/* All except last 2 children (last link + version) */
+.footer__item:not(:nth-last-child(-n+2))::after {
   content: '|';
   margin-right: 5px;
   margin-left: 5px;
